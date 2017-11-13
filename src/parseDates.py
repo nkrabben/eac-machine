@@ -12,21 +12,19 @@ parser.parser.parse = parse
 
 
 def parseDates(dateString):
-	dateSet = re.search(r',', dateString)
+	if re.search(r'and', dateString):
+		dateString = dateString.replace('and', '-')
 
-	if dateSet:
-		dates = dateString.split('')
+	if re.search(r',|;', dateString):
+		dates = re.split(r',|;', dateString)
 		dateElement = ET.Element('dateSet')
-
 		for date in dates:
-			dateElement.append(parseDates(date))
+			dateElement.append(parseDates(date.strip()))
+	elif re.search(r'-', dateString):
+		dateElement = convertDateRange(dateString.strip())
 	else:
-		dateRange = re.search(r'-', dateString)
+		dateElement = createDateElement('date', dateString.strip())
 
-		if dateRange:
-			dateElement = convertDateRange(dateString)
-		else:
-			dateElement = createDateElement('date', dateString)
 
 	return(dateElement)
 
@@ -35,26 +33,31 @@ def parseDates(dateString):
 def createDateElement(tag, dateString):
 	dateElement = ET.Element(tag)
 
+	if re.search(r'\d{4}s', dateString):
+		decade = dateString[:-1]
+		dateElement.set('notBefore', decade)
+		dateElement.set('notAfter', decade[:-1] + "9")
+
 	convertedDateString = convertDateString(dateString)
 
 	value = convertedDateString[0]
 	dateElement.text = value
 	dateElement.set('standardDate', convertedDateString[1])
 
-	if convertedDateString[2] != '':
-		print 'Hi'
-
-
+	if convertedDateString[2] == 'before':
+		dateElement.set('notAfter', convertedDateString[1])
+	elif convertedDateString[2] == 'after':
+		dateElement.set('notBefore', convertedDateString[1])
 
 	return(dateElement)
 
 
 def convertDateString(dateString):
 	testedDateString = testApproxValue(dateString)
-	date = testedDateString[1]
+	date = unicode(testedDateString[1])
+
 
 	ddd = parser.parser().parse(date, None, fuzzy = True)
-	print ddd
 
 	if ddd.day:
 		dstr = str(ddd.year)+'-'+str("%02d" % ddd.month)+'-'+str("%02d" % ddd.day)
@@ -64,8 +67,9 @@ def convertDateString(dateString):
 		dstr = str(ddd.year)
 	else:
 		print 'Unreadable date: ' + date
-		date = input('Enter a new date as (before, after, etc) dd Month yyyy e.g. (after 01 January 2000):')
-		dstr = convertDateString(date)
+		newDateString = raw_input('Enter a new date as (before, after, etc) dd Month yyyy e.g. (after 01 January 2000):\n')
+		print dateString, date, newDateString
+		return(convertDateString(unicode(newDateString)))
 
 	testedDateString[1] = dstr
 
@@ -76,7 +80,7 @@ def testApproxValue(dateString):
 	justDateString = dateString
 	approxString = ''
 
-	approxStrings = re.search(r'(.*)(before|after|\?)(.*)', dateString)
+	approxStrings = re.search(r'(.*)(before|after|\?|s$)(.*)', dateString)
 
 	if approxStrings:
 		approxString = approxStrings.group(2)
@@ -93,10 +97,16 @@ def convertDateRange(dateRange):
 
 	dateElement = ET.Element('dateRange')
 
+	fromDate = None
+
 	if rangeMatch.group(1):
+		fromDate = rangeMatch.group(1).strip()
 		dateElement.append(createDateElement('fromDate', rangeMatch.group(1)))
 	if rangeMatch.group(2):
-		dateElement.append(createDateElement('toDate', rangeMatch.group(2)))
+		toDate = rangeMatch.group(2).strip()
+		if toDate != '' and not re.match(r'\d', toDate) and fromDate:
+			toDate = fromDate[0:4] + ' ' + toDate
+			print toDate
+		dateElement.append(createDateElement('toDate', toDate))
 
 	return(dateElement)
-

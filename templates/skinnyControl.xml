@@ -1,36 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
-	<control>
-		<recordID></recordID>
-		<maintenanceStatus>new</maintenanceStatus>
-		<maintenanceAgency>
-			<agencyCode>OCLC-YAM</agencyCode>
-			<agencyName>American Museum of Natural History</agencyName>
-		</maintenanceAgency>
-		<languageDeclaration>
-			<language langCode="eng">English</language>
-			<script scriptCode="Latn">Latin</script>
-		</languageDeclaration>
-		<conventionDeclaration>
-			<abbreviation>dacs</abbreviation>
-			<citation>Describing Archives: A Content Standard</citation>
-		</conventionDeclaration>
-		<conventionDeclaration>
-			<abbreviation>lcnaf</abbreviation>
-			<citation>Library of Congress Name Authority File</citation>
-		</conventionDeclaration>
-		<conventionDeclaration>
-			<abbreviation>viaf</abbreviation>
-			<citation>Virtual International Authority File</citation>
-		</conventionDeclaration>
-		<maintenanceHistory>
-			<maintenanceEvent>
-				<eventType>created</eventType>
-				<eventDateTime></eventDateTime>
-				<agentType>machine</agentType>
-				<agent>EAC-machine</agent>
-				<eventDescription>Created from an Excel sheet of AMNH records with a Python script written</eventDescription>
-			</maintenanceEvent>
-		</maintenanceHistory>
-	</control>
+
+    <control>
+
+
+        <recordId></recordId>
+
+
+        <maintenanceStatus>new</maintenanceStatus>
+        <maintenanceAgency>
+            <agencyCode>OCLC-YAM</agencyCode>
+            <agencyName>American Museum of Natural History</agencyName>
+        </maintenanceAgency>
+        <languageDeclaration>
+            <language languageCode="eng">English</language>
+            <script scriptCode="Latn">Latin</script>
+        </languageDeclaration>
+        <conventionDeclaration>
+            <abbreviation>lcnaf</abbreviation>
+            <citation>Library of Congress Name Authority File</citation>
+        </conventionDeclaration>
+        <conventionDeclaration>
+            <abbreviation>viaf</abbreviation>
+            <citation>Virtual International Authority File</citation>
+        </conventionDeclaration>
+        <conventionDeclaration>
+            <abbreviation>amnhopac</abbreviation>
+            <citation>American Museum of Natural History Online Public Access Catalog</citation>
+            <descriptiveNote>
+                <p>Controlled names derived from the AMNH Library catalog.</p>
+            </descriptiveNote>
+        </conventionDeclaration>
+        <conventionDeclaration>
+            <abbreviation>local</abbreviation>
+            <citation>Uncontrolled Form</citation>
+            <descriptiveNote>
+                <p>For use with uncontrolled names found in AMNH documentation.</p>
+            </descriptiveNote>
+        </conventionDeclaration>
+        <!-- The following localTypeDeclarations are not used in the minimal records. However, they are added in the control field in the event that the record is edited with fuller description.
+        The terms for the nameEntry parts are from SNAC. At this time (2016 June), SNAC has outlined their values and defined all part designations for CPF names. URIs will be assigned using the base namespace: http://snaccooperative.org/control/term#[value]. Once published, the URIs should be entered in the localTypeDeclarations as an xlink:href in citations. -->
+        <localTypeDeclaration>
+            <abbreviation>name</abbreviation>
+            <citation>Name that is not identifiable as a forename or surname. Unimarc _0 $a</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>forename</abbreviation>
+            <citation>Forename or forenames, or given name or names. Unimarc _0 $a or $b when _1 $a entry</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>surname</abbreviation>
+            <citation>Family name. Unimarc _1 $a</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>nameAddition</abbreviation>
+            <citation>Additions to names other than dates. Unimarc $c</citation>
+            <descriptiveNote>
+                <p>Repeatable. Can be used for persons and corporate bodies/meetings.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>romanNumeral</abbreviation>
+            <citation>Roman numerals. Unimarc $d</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>date</abbreviation>
+            <citation>Dates. Unimarc $d</citation>
+            <descriptiveNote>
+                <p>Not repeatable. Can be used for persons, corporate bodies/meetings and families.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>nameExpansion</abbreviation>
+            <citation>Expansion of initials of forename. Unimarc $g</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>corporateName</abbreviation>
+            <citation>Entry name. Unimarc _1 $a</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>jurisdictionName</abbreviation>
+            <citation>Jurisdiction name. Unimarc _2 $a</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>subdivisionName</abbreviation>
+            <citation>Subdivision. Unimarc $b</citation>
+            <descriptiveNote>
+                <p>Repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>number</abbreviation>
+            <citation>Number of meeting and/or number of part of meeting. Unimarc $d</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>location</abbreviation>
+            <citation>Location of meeting. Unimarc $e</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>familyName</abbreviation>
+            <citation>Family name. Unimarc $a</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>familyType</abbreviation>
+            <citation>Type of family, e.g., family, dynasty, clan, House of, Dukes of, etc. Unimarc $c</citation>
+            <descriptiveNote>
+                <p>Not repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <localTypeDeclaration>
+            <abbreviation>place</abbreviation>
+            <citation>Places associated family. Unimarc $d</citation>
+            <descriptiveNote>
+                <p>Repeatable.</p>
+            </descriptiveNote>
+        </localTypeDeclaration>
+
+        <maintenanceHistory>
+            <maintenanceEvent>
+                <eventType>created</eventType>
+                <eventDateTime></eventDateTime>
+                <agentType></agentType>
+                <agent></agent>
+                <eventDescription>Minimal-level entity record transformed into xml from Excel spread sheet using python script written by Nick Krabbenhoeft. Status=1.</eventDescription>
+            </maintenanceEvent>
+        </maintenanceHistory>
+
+    </control>
 </eac-cpf>
